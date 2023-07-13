@@ -1,0 +1,64 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card-columns"></div>
+
+        </div>
+    </div>
+</div>
+@section Styles{
+    <style>
+        .card {
+            display: inline-block;
+        }
+    </style>
+
+}
+@section Scripts{
+    <script src="~/js/travel.js"></script>
+    <script>
+        spots.CommonFormat.Section.forEach(element => {
+            const { file } = element
+            console.log(file.img[0])
+        })
+
+        const datas = spots.CommonFormat.Section.map(element => {
+            const { file, stitle, xbody, address, MRT, MEMO_TEL, xurl } = element
+            let images;
+            try {
+                images = file.img[0].text
+            } catch (error) {
+                images = `https://i.imgur.com/1MgKrYF.png`; /* 任意默认值都可以被使用 */
+            };
+            let tel = MEMO_TEL
+            if (tel == undefined) {
+                tel = "無聯絡電話"
+            }
+
+            return (`
+                            <div class="card" style="width: 18rem;">
+                                                                <img class="card-img-top" src="${images}" alt="Card image cap">
+                                <div class="card-body">
+                                            <h5 class="card-title">${stitle}</h5>
+                                            <p class="card-text">${xbody.substring(0, 99)}...</p>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">${address}</li>
+                                            <li class="list-group-item">${MRT}捷運站</li>
+                                            <li class="list-group-item">${tel}</li>
+                                </ul>
+                                <div class="card-body">
+                                            <a href="${xurl}" class="card-link">相關連結</a>
+                                </div>
+                            </div>
+                    `)
+
+        })
+        $(".card-columns").html(datas.join(""))
+    </script>
+}
+

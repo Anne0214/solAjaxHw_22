@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "prjAjaxHw_22", "prjAjaxHw_22\prjAjaxHw_22.csproj", "{06548A11-9F8C-4D8E-87B7-E7029F71D6A3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "prjAjaxHw", "prjAjaxHw\prjAjaxHw.csproj", "{466034A9-A9DD-4C54-A54E-1A6BBDB43949}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{06548A11-9F8C-4D8E-87B7-E7029F71D6A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{06548A11-9F8C-4D8E-87B7-E7029F71D6A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{06548A11-9F8C-4D8E-87B7-E7029F71D6A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{06548A11-9F8C-4D8E-87B7-E7029F71D6A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{466034A9-A9DD-4C54-A54E-1A6BBDB43949}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{466034A9-A9DD-4C54-A54E-1A6BBDB43949}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{466034A9-A9DD-4C54-A54E-1A6BBDB43949}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{466034A9-A9DD-4C54-A54E-1A6BBDB43949}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
