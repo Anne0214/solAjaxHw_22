@@ -28,12 +28,14 @@
 
         const datas = spots.CommonFormat.Section.map(element => {
             const { file, stitle, xbody, address, MRT, MEMO_TEL, xurl } = element
-            let images;
-            try {
-                images = file.img[0].text
-            } catch (error) {
-                images = `https://i.imgur.com/1MgKrYF.png`; /* 任意默认值都可以被使用 */
-            };
+
+            let image
+            if (Array.isArray(file.img)) {
+                image = file.img[0].text
+            }else{
+                image = file.img
+            }
+
             let tel = MEMO_TEL
             if (tel == undefined) {
                 tel = "無聯絡電話"
@@ -41,7 +43,7 @@
 
             return (`
                             <div class="card" style="width: 18rem;">
-                                                                <img class="card-img-top" src="${images}" alt="Card image cap">
+                                                                <img class="card-img-top" src="${image}" alt="Card image cap">
                                 <div class="card-body">
                                             <h5 class="card-title">${stitle}</h5>
                                             <p class="card-text">${xbody.substring(0, 99)}...</p>
