@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewData["Title"] = "Hw4";
+}
+
+<h1>Hw4</h1>
+<Select id="cities">
+    
+</Select>
+
+<select id="countries">
+
+</Select>
+
+<select id="roads">
+
+</Select>
+
+@section Scripts{
+    <script>
+        
+
+         function GetCountries(){
+            const api = `/api/countries/?city=`+ $("#cities").val();
+            const xhr2 = new XMLHttpRequest();
+            xhr2.open('GET',api)
+            xhr2.send()
+            
+            xhr2.addEventListener('load',() =>{
+                const datas = JSON.parse(xhr2.responseText);
+                const countries = datas.map(item => {
+                    const name = item.substring(3,6);
+                    return (`<option value="${name}">${name}</option>`)
+                })
+                $("#countries").html(countries.join(""))
+                GetRoad()
+            })
+        }
+
+        function GetRoad(){
+            const api = `/api/street/?country=` + $("#countries").val();
+            let xhr3 = new XMLHttpRequest();
+            xhr3.open('GET',api)
+            xhr3.send()
+            
+            xhr3.addEventListener('load',() =>{
+                const datas = JSON.parse(xhr3.responseText);
+                let roads = datas.map(item => {
+                    
+                    return (`<option value="${item}">${item}</option>`)
+                })
+                $("#roads").html(roads.join(""))
+            })
+        }
+
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET','/api/cities');
+        xhr.send();
+
+        xhr.addEventListener('load',() =>{
+            const datas = JSON.parse(xhr.responseText);
+            var cities = datas.map(item =>{
+                return (`<option value="${item}">${item}</option>`)
+            })
+            $("#cities").html(cities.join(""))
+
+            GetCountries()
+        })
+
+        
+
+        $("#cities").change(function(){
+            GetCountries();
+        })
+
+        $("#countries").change(GetRoad)
+
+        
+    </script>
+}
+
