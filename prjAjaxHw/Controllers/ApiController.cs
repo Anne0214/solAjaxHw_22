@@ -42,7 +42,15 @@ namespace prjAjaxHw.Controllers
             var datas = _context.Address.Where(x => x.SiteId.Contains(keyword)).Select(x => x.Road);
             return Json(datas);
         }
-
+        public IActionResult CheckAccount(string name)
+        {
+            var data = _context.Members.FirstOrDefault(x=>x.Name==name);
+            if (data != null)
+            {
+                return Json(data);
+            }
+            else { return Json("1"); }
+        }
 
 
     }
