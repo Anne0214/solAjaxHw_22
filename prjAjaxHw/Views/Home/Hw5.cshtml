@@ -64,7 +64,7 @@
             event.preventDefault()
             var xhr = new XMLHttpRequest();
             
-            var formData = new FormData();
+            var formData = new FormData(document.formUpload);
             formData.append('file',input.files[0])
             
             xhr.open('POST', '/api/UploadProfilePhoto')
