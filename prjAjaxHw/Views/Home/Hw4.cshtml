@@ -22,12 +22,12 @@
 
          function GetCountries(){
             const api = `/api/countries/?city=`+ $("#cities").val();
-            const xhr2 = new XMLHttpRequest();
-            xhr2.open('GET',api)
-            xhr2.send()
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET',api)
+            xhr.send()
             
-            xhr2.addEventListener('load',() =>{
-                const datas = JSON.parse(xhr2.responseText);
+            xhr.addEventListener('load',() =>{
+                const datas = JSON.parse(xhr.responseText);
                 const countries = datas.map(item => {
                     const name = item.substring(3,6);
                     return (`<option value="${name}">${name}</option>`)
@@ -39,12 +39,12 @@
 
         function GetRoad(){
             const api = `/api/street/?country=` + $("#countries").val();
-            let xhr3 = new XMLHttpRequest();
-            xhr3.open('GET',api)
-            xhr3.send()
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET',api)
+            xhr.send()
             
-            xhr3.addEventListener('load',() =>{
-                const datas = JSON.parse(xhr3.responseText);
+            xhr.addEventListener('load',() =>{
+                const datas = JSON.parse(xhr.responseText);
                 let roads = datas.map(item => {
                     
                     return (`<option value="${item}">${item}</option>`)
@@ -69,9 +69,8 @@
 
         
 
-        $("#cities").change(function(){
-            GetCountries();
-        })
+        $("#cities").change(GetCountries);
+
 
         $("#countries").change(GetRoad)
 

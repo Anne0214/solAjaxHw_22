@@ -37,11 +37,14 @@ namespace prjAjaxHw.Controllers
         {
             return View();
         }
-        public IActionResult test(string city)
-        {
-            string keyword = WebUtility.UrlDecode(city);
-            //var datas = (new DemoContext()).Address.Where(x => x.City == keyword).Select(x => x.SiteId).Distinct();
-            return Content(keyword);
+        public IActionResult Hw5() {
+            return View();
+        }
+        public IActionResult Hw6() {
+            return View();
+        }
+        public IActionResult Hw7() {
+            return View();
         }
 
 
@@ -55,5 +58,7 @@ namespace prjAjaxHw.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        
     }
 }

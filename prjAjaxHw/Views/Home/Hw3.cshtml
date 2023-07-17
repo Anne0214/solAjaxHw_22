@@ -3,15 +3,74 @@
     ViewData["Title"] = "Hw3";
 }
 
-<h1>Hw3</h1>
-<p>這裡還沒有東西</p>
-<label>會員名稱</label>
-<input type="text"/>
+<h1>Regiser</h1>
+<div class="row">
+    <div class="col-3">
+        <a href="~/home/index" id="linkPage">Index Page</a>
+    </div>
+    <div class="col-6">
+        <form name="registerForm">
+            <div class="mb-3">
+                <label for="InputUserName" class="form-label">姓名</label>
+                <input type="text" class="form-control" id="InputUserName" name="Name" />
+                <div id="nameHelp" class="form-text"></div>
+            </div>
+            <div class="mb-3">
+                <label for="InputEmail" class="form-label">電子郵件</label>
+                <input type="email" class="form-control" id="InputEmail" name="Email" />
+            </div>
+            <div class="mb-3">
+                <label for="InputAge" class="form-label">年紀</label>
+                <input type="number" class="form-control" id="InputAge" name="Age">
+            </div>
+           
+            <button class="btn btn-primary" id="buttonSubmit">Submit</button>
+        </form>
+
+    </div>
+    <div class="col-3"></div>
+</div>
+
 @section Scripts{
-<script>
-    $("input[type="text"]").change(function(){
-        //call api
-    })
-</script>
+    <script>
+        var xhr = new XMLHttpRequest();
+        //當正在loading api時，會有loading
+        xhr.addEventListener('loadstart',()=>{
+            $("#nameHelp").css("color","#000")
+            const loading = `<div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>`
+            $("#nameHelp").html(loading)
+        })
+
+        //api回傳資料處理
+        xhr.addEventListener('load', () => {
+
+            const result = xhr.responseText;
+            if (result == "1") {
+                $("#nameHelp").html("該名稱已被使用，請使用其他帳號").css("color", "red");
+            } else {
+                $("#nameHelp").html("該名稱無人使用").css("color", "green");
+            }
+        })
+        //input內有變化時
+        $("#InputUserName").change(()=>{
+            const name = $("#InputUserName").val()
+
+            //若沒有填內容則不會有檢查的提示出現
+            if ($("#InputUserName").val().length ===0) {
+                $("#nameHelp").text("")
+            }
+
+            //打Api檢查帳號是否存在
+            xhr.open('GET', `/api/CheckAccount/?name=${name}`)
+            xhr.send()
+        })
+
+    </script>
+}
+
+@section Styles{
+    <style></style>
 }
 

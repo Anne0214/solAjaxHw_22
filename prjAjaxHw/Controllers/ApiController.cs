@@ -29,7 +29,7 @@ namespace prjAjaxHw.Controllers
 
         public IActionResult Countries(string city)
         {
-            //string keyword = HttpUtility.UrlDecode(city);
+            
             string keyword = WebUtility.UrlDecode(city); 
             var datas = _context.Address.Where(x => x.City == keyword).Select(x => x.SiteId).Distinct();
             
@@ -47,10 +47,12 @@ namespace prjAjaxHw.Controllers
             var data = _context.Members.FirstOrDefault(x=>x.Name==name);
             if (data != null)
             {
-                return Json(data);
+                return Content("1");
             }
-            else { return Json("1"); }
+            else { return Content("0"); }
         }
+
+        
 
 
     }
