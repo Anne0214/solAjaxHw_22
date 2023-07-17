@@ -10,10 +10,13 @@ namespace prjAjaxHw.Controllers
     public class ApiController : Controller
     {
         private readonly DemoContext _context;
+        private readonly IWebHostEnvironment _host;
 
-        public ApiController(DemoContext context)
+        public ApiController(DemoContext context,IWebHostEnvironment host)
         {
             _context = context;
+            _host = host;
+
         }
         public IActionResult Index()
         {
@@ -51,8 +54,19 @@ namespace prjAjaxHw.Controllers
             }
             else { return Content("0"); }
         }
+        [HttpPost]
+        public IActionResult UploadProfilePhoto(IFormFile photo)
+        {
+            string path = Path.Combine(_host.WebRootPath, "uploads", photo.FileName);
 
-        
+            using (var fileStream = new FileStream(path, FileMode.Create))
+            {
+                photo.CopyTo(fileStream);
+            }
+            return Content("success");
+        }
+
+
 
 
     }
