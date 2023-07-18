@@ -63,7 +63,7 @@ namespace prjAjaxHw.Controllers
             {
                 file.CopyTo(fileStream);
             }
-            return Content("success");
+            return Content($"上傳成功!檔案位置:{path}");
         }
 
 
