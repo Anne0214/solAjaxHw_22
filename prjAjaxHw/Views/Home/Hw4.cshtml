@@ -21,7 +21,8 @@
         
 
          function GetCountries(){
-            const api = `/api/countries/?city=`+ $("#cities").val();
+            const city = $("#cities").val()
+            const api = `@Url.Content("~/api/countries/?city=")${city}`;
             const xhr = new XMLHttpRequest();
             xhr.open('GET',api)
             xhr.send()
@@ -38,7 +39,8 @@
         }
 
         function GetRoad(){
-            const api = `/api/street/?country=` + $("#countries").val();
+            const country = $("#countries").val()
+            const api = `@Url.Content("~/api/street/?country=")${country}`;
             let xhr = new XMLHttpRequest();
             xhr.open('GET',api)
             xhr.send()
@@ -54,7 +56,7 @@
         }
 
         let xhr = new XMLHttpRequest();
-        xhr.open('GET','/api/cities');
+        xhr.open('GET','@Url.Content("~/api/cities")');
         xhr.send();
 
         xhr.addEventListener('load',() =>{
