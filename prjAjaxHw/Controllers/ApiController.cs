@@ -55,13 +55,13 @@ namespace prjAjaxHw.Controllers
             else { return Content("0"); }
         }
         [HttpPost]
-        public IActionResult UploadProfilePhoto(IFormFile photo)
+        public IActionResult UploadProfilePhoto(IFormFile file)
         {
-            string path = Path.Combine(_host.WebRootPath, "uploads", photo.FileName);
+            string path = Path.Combine(_host.WebRootPath, "uploads", file.FileName);
 
             using (var fileStream = new FileStream(path, FileMode.Create))
             {
-                photo.CopyTo(fileStream);
+                file.CopyTo(fileStream);
             }
             return Content("success");
         }
