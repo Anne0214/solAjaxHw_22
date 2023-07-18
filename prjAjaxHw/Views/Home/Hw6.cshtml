@@ -4,11 +4,7 @@
 }
 
 
-@{
-    ViewData["Title"] = "Hw4";
-}
-
-<h1>Hw4</h1>
+<h1>Hw6</h1>
 <Select id="cities">
     
 </Select>
@@ -23,76 +19,52 @@
 
 @section Scripts{
     <script>
-        //async function asyncFun(){
-        //    try{
-        //        //等到city api執行完，才會出現city的response
-        //        const responseCities = await fetch('/api/cities')
-        //        responseCities = await JSON.parse(responseCities.text());
-        //        const cityLsit = await responseCities.map(item =>{
-        //        return (`<option value="${item}">${item}</option>`)
-        //        })
-        //        await $("#cities").html(cities.join(""))
 
-        //    }catch{
-        //        console.log(error);
-        //    }
-        
-        //}
-        
-
-         function GetCountries(){
-            const api = `/api/countries/?city=`+ $("#cities").val();
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET',api)
-            xhr.send()
-            
-            xhr.addEventListener('load',() =>{
-                const datas = JSON.parse(xhr.responseText);
-                const countries = datas.map(item => {
+         async function GetCountries(){
+            const city = $("#cities").val()
+            const api = `@Url.Content("~/api/countries/?city=")${city}`;
+            //const xhr = new XMLHttpRequest();
+            const response = await fetch(api);
+            const datas = await response.json();
+            const countries =await datas.map(item => {
                     const name = item.substring(3,6);
                     return (`<option value="${name}">${name}</option>`)
                 })
-                $("#countries").html(countries.join(""))
-                GetRoad()
-            })
+            $("#countries").html(countries.join(""))
+            GetRoads()
         }
 
-        function GetRoad(){
-            const api = `/api/street/?country=` + $("#countries").val();
-            let xhr = new XMLHttpRequest();
-            xhr.open('GET',api)
-            xhr.send()
-            
-            xhr.addEventListener('load',() =>{
-                const datas = JSON.parse(xhr.responseText);
-                let roads = datas.map(item => {
-                    
-                    return (`<option value="${item}">${item}</option>`)
+        async function GetRoads(){
+            const country = $("#countries").val()
+            const api = `@Url.Content("~/api/street/?country=")${country}`;
+            const response = await fetch(api)
+            const datas = await response.json()
+
+            const roads = await datas.map(item => {
+                return (`<option value="${item}">${item}</option>`)
                 })
-                $("#roads").html(roads.join(""))
-            })
+            $("#roads").html(roads.join(""))    
+
         }
 
-        let xhr = new XMLHttpRequest();
-        xhr.open('GET','/api/cities');
-        xhr.send();
+        async function GetCities(){
+            const api = `@Url.Content("~/api/cities")`;
+            const response = await fetch(api)
+            const datas = await response.json()
 
-        xhr.addEventListener('load',() =>{
-            const datas = JSON.parse(xhr.responseText);
-            var cities = datas.map(item =>{
+            var cities = await datas.map(item =>{
                 return (`<option value="${item}">${item}</option>`)
             })
-            $("#cities").html(cities.join(""))
-
+            $("#cities").html(cities.join(""))  
             GetCountries()
-        })
 
-        
+        }
+
+        GetCities();
 
         $("#cities").change(GetCountries);
 
-
-        $("#countries").change(GetRoad)
+        $("#countries").change(GetRoads)
 
         
     </script>
